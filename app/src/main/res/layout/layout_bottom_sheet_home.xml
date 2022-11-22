@@ -26,13 +26,11 @@
             android:src="@drawable/light_red_pinlight_red_pin" />
 
         <TextView
+            style="@style/BottomSheetItemTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_spacing"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:text="@string/start_destination_placeholder"
-            android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="@color/light_gray" />
     </LinearLayout>
 
@@ -53,15 +51,14 @@
             android:src="@drawable/to_blue_icon" />
 
         <TextView
+            style="@style/BottomSheetItemTextStyle"
             android:id="@+id/txt_target_destination"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_spacing"
             android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:fontFamily="@font/lato_bold"
             android:text="@string/to_destination"
-            android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/light_black" />
 
         <ImageView
