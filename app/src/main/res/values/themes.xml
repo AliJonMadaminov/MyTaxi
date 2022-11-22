@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AndroidTaskJunior" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.AndroidTaskJunior" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/transparent</item>
         <!-- Customize your theme here. -->
+
+        <!--Transparent status bar-->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    
+    <style name="ClickableStyle">
+        <item name="background">?attr/selectableItemBackground</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
 </resources>
