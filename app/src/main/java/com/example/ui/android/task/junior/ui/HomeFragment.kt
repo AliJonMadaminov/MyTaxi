@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.databinding.FragmentHomeBinding
 import com.example.ui.android.task.junior.models.ZoomLevel
@@ -189,9 +191,9 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         mapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-
         myLocationViewOriginal = mapFragment.requireView().findViewById(0x2)
 
+        NavigationUI.setupWithNavController(binding.navView, findNavController())
         return binding.root
     }
 
