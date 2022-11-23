@@ -1,55 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/medium_spacing"
-    android:layout_marginTop="@dimen/big_spacing"
-    android:backgroundTint="@color/dark_gray"
-    app:cardCornerRadius="@dimen/card_radius">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="client"
+            type="com.example.ui.android.task.junior.models.Client" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/medium_spacing"
+        android:layout_marginTop="@dimen/big_spacing"
+        android:backgroundTint="@color/dark_gray"
+        app:cardCornerRadius="@dimen/card_radius">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_profile_user"
-            android:layout_width="@dimen/circle_image_diameter"
-            android:layout_height="@dimen/circle_image_diameter"
-            android:layout_margin="@dimen/medium_spacing"
-            tools:src="@drawable/girl"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_full_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_spacing"
-            android:fontFamily="@font/sf_pro_bold"
-            android:maxLines="2"
-            android:textColor="@color/white_my"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_phone_number"
-            app:layout_constraintStart_toEndOf="@+id/img_profile_user"
-            app:layout_constraintTop_toTopOf="@+id/img_profile_user"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Fotimaxonim\nSaidova" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile_user"
+                android:layout_width="@dimen/circle_image_diameter"
+                android:layout_height="@dimen/circle_image_diameter"
+                android:layout_margin="@dimen/medium_spacing"
+                app:imgSource="@{client.profileImageRes}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/girl" />
 
-        <TextView
-            android:id="@+id/txt_phone_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_regular"
-            android:textColor="@color/light_gray"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_profile_user"
-            app:layout_constraintStart_toStartOf="@id/txt_full_name"
-            app:layout_constraintTop_toBottomOf="@id/txt_full_name"
-            tools:text="+998 95 654 78 96" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txt_full_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_spacing"
+                android:fontFamily="@font/sf_pro_bold"
+                android:maxLines="2"
+                android:text="@{client.getClientFullName()}"
+                android:textColor="@color/white_my"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/txt_phone_number"
+                app:layout_constraintStart_toEndOf="@+id/img_profile_user"
+                app:layout_constraintTop_toTopOf="@+id/img_profile_user"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Fotimaxonim\nSaidova" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/txt_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:text="@{client.phoneNumber}"
+                android:textColor="@color/light_gray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_profile_user"
+                app:layout_constraintStart_toStartOf="@id/txt_full_name"
+                app:layout_constraintTop_toBottomOf="@id/txt_full_name"
+                tools:text="+998 95 654 78 96" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

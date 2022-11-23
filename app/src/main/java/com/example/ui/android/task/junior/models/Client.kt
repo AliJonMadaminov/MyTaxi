@@ -14,4 +14,7 @@ data class Client(
 
 ) : BaseClient() {
 
+    fun getClientFullName(): String {
+        return name + "\n" + surname
+    }
 }

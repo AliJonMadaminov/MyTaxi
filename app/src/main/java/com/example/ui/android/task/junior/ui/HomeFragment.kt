@@ -4,112 +4,72 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Rect
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.databinding.FragmentHomeBinding
-import com.example.ui.android.task.junior.models.ZoomLevel
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.example.ui.android.task.junior.databinding.NavHeaderBinding
+import com.example.ui.android.task.junior.viewmodels.HomeViewModel
+import com.example.ui.android.task.junior.viewmodels.HomeViewModelFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mapFragment: Fragment
     private lateinit var myLocationViewOriginal: View
 
     private var locationPermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
+    private lateinit var viewModel:HomeViewModel
+
+    var mapFragment:SupportMapFragment? = null
+
     private val callback = OnMapReadyCallback { googleMap ->
-        val amirTemurSquare = LatLng(41.31114164054522, 69.27959980798161)
-        val markerDrawable = getDrawable(requireContext(), R.drawable.blue_map_pin)
-        val markerIcon =
-            markerDrawable?.toBitmap(markerDrawable.intrinsicWidth, markerDrawable.intrinsicHeight)
-        var marker: Marker? = googleMap.addMarker(
-            MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromBitmap(markerIcon!!))
-                .position(amirTemurSquare)
-        )
-        googleMap.setOnCameraIdleListener {
-            val geocoder = Geocoder(requireContext())
-            val placeNames = geocoder.getFromLocation(
-                googleMap.cameraPosition.target.latitude,
-                googleMap.cameraPosition.target.longitude,
-                2
-            )
 
-            val placeName = placeNames[0]
-            if (placeName != null && placeName.featureName != null && placeName.subLocality != null) {
+        viewModel.updateCurrentLocationNameOnCameIdle(googleMap, Geocoder(requireContext()))
 
-                binding.bottomSheetHome.txtStartDestination.text = buildString {
-                    append(placeName.subLocality)
-                    append(", ")
-                    append(placeName.featureName)
-                }
+        viewModel.setMinMaxZoomPreferences(googleMap)
 
-            }
-        }
+        viewModel.initializeMarker(googleMap)
 
-        googleMap.setMinZoomPreference(ZoomLevel.CITY.value)
-        googleMap.setMaxZoomPreference(ZoomLevel.BUILDINGS.value)
+        setMyLocationClickListener(googleMap)
 
-        googleMap.moveCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                amirTemurSquare,
-                ZoomLevel.STREETS.value
-            )
-        )
-
-        setMyLocationListener(googleMap)
-
-
-        googleMap.setOnCameraMoveListener {
-            if (marker != null) {
-                marker.position = googleMap.cameraPosition.target
-            }
-        }
+        viewModel.moveMarkerWithCamera(googleMap)
 
     }
 
     @SuppressLint("MissingPermission")
-    private fun setMyLocationListener(googleMap: GoogleMap) {
-
+    private fun setMyLocationClickListener(googleMap: GoogleMap) {
         binding.imgMyLocation.setOnClickListener {
-
             val manager: LocationManager =
                 getSystemService(requireContext(), LocationManager::class.java) as LocationManager
 
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                buildAlertMessageNoGps();
+                showAlertMessageNoGps();
             } else {
                 gotoMyLocation(googleMap)
             }
-
         }
-
     }
 
-    private fun buildAlertMessageNoGps() {
+    private fun showAlertMessageNoGps() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
             .setCancelable(false)
@@ -132,8 +92,20 @@ class HomeFragment : Fragment() {
                 myLocationViewOriginal.visibility = View.GONE
             }
 
-            myLocationViewOriginal.performClick()
+            myLocationViewOriginal.callOnClick()
         }
+    }
+
+    private fun convinceProvidingPermission() {
+        val locationRequestPurpose = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.location_permission_denied))
+            .setMessage(getString(R.string.permission_request_explanation))
+            .setPositiveButton("allow") { dialogInterface, i ->
+                requestPermission(permissionLauncher)
+            }
+            .create()
+
+        locationRequestPurpose.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,16 +122,38 @@ class HomeFragment : Fragment() {
         requestPermission(permissionLauncher)
     }
 
-    private fun convinceProvidingPermission() {
-        val locationRequestPurpose = AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.location_permission_denied))
-            .setMessage(getString(R.string.permission_request_explanation))
-            .setPositiveButton("allow") { dialogInterface, i ->
-                requestPermission(permissionLauncher)
-            }
-            .create()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater)
+        NavigationUI.setupWithNavController(binding.navView, findNavController())
+        initializeViewModel()
+        bindData()
+        return binding.root
+    }
 
-        locationRequestPurpose.show()
+    private fun bindData() {
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        bindUserData()
+    }
+
+    private fun initializeViewModel() {
+        val viewModelFactory = HomeViewModelFactory(requireActivity().application)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+        myLocationViewOriginal = mapFragment?.requireView()?.findViewById(0x2)!!
+
+        binding.imgHamburger.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
 
     private fun requestPermission(permissionLauncher: ActivityResultLauncher<Array<String>>) {
@@ -179,34 +173,12 @@ class HomeFragment : Fragment() {
                 locationPermissionGranted = false
             }
         }
-
         return locationPermissionGranted
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(inflater)
-        mapFragment =
-            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        myLocationViewOriginal = mapFragment.requireView().findViewById(0x2)
-
-        NavigationUI.setupWithNavController(binding.navView, findNavController())
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-        binding.imgHamburger.setOnClickListener {
-            binding.root.openDrawer(GravityCompat.START)
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun bindUserData() {
+        val headerView = binding.navView.getHeaderView(0)
+        val navHeaderBinding = NavHeaderBinding.bind(headerView)
+        navHeaderBinding.client = viewModel.client
     }
 }

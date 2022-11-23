@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottom_sheet_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet_background"
-    android:orientation="vertical"
-    android:padding="@dimen/medium_spacing"
-    tools:showIn="@layout/fragment_home"
-    app:layout_constraintBottom_toBottomOf="parent">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.ui.android.task.junior.viewmodels.HomeViewModel" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/linear_start_destination"
-        style="@style/ClickableStyle"
+        android:id="@+id/bottom_sheet_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:background="@drawable/bottom_sheet_background"
+        android:orientation="vertical"
+        android:padding="@dimen/medium_spacing"
+        tools:showIn="@layout/fragment_home"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_red_pin"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linear_start_destination"
+            style="@style/ClickableStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_spacing"
-            android:src="@drawable/light_red_pinlight_red_pin" />
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/txt_start_destination"
-            style="@style/BottomSheetItemTextStyle"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_red_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_spacing"
+                android:src="@drawable/light_red_pinlight_red_pin" />
+
+            <TextView
+                android:id="@+id/txt_start_destination"
+                style="@style/BottomSheetItemTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentLocationName}"
+                android:layout_margin="@dimen/medium_spacing"
+                tools:text="@string/start_destination_placeholder"
+                android:textColor="@color/darker_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_target_destination"
+            style="@style/ClickableStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_spacing"
-            android:text="@string/start_destination_placeholder"
-            android:textColor="@color/darker_white" />
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@drawable/bottom_sheet_item_bg"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_target_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_spacing"
+                android:src="@drawable/to_blue_icon" />
+
+            <TextView
+                style="@style/BottomSheetItemTextStyle"
+                android:id="@+id/txt_target_destination"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_spacing"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/to_destination"
+                android:textColor="@color/light_black" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_spacing"
+                android:src="@drawable/vertical_line" />
+
+            <ImageView
+                android:id="@+id/img_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium_spacing"
+                android:src="@drawable/next_arrow"
+                android:theme="@style/ClickableStyle" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_target_destination"
-        style="@style/ClickableStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:background="@drawable/bottom_sheet_item_bg"
-        android:gravity="center_vertical">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_target_destination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_spacing"
-            android:src="@drawable/to_blue_icon" />
-
-        <TextView
-            style="@style/BottomSheetItemTextStyle"
-            android:id="@+id/txt_target_destination"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_spacing"
-            android:layout_weight="1"
-            android:fontFamily="@font/lato_bold"
-            android:text="@string/to_destination"
-            android:textColor="@color/light_black" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/medium_spacing"
-            android:src="@drawable/vertical_line" />
-
-        <ImageView
-            android:id="@+id/img_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_spacing"
-            android:src="@drawable/next_arrow"
-            android:theme="@style/ClickableStyle" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</layout>
