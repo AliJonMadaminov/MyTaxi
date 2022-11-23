@@ -15,6 +15,7 @@
 
         <!--Transparent status bar-->
         <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
     
@@ -30,6 +31,12 @@
         <item name="android:maxLines">1</item>
         <item name="font">@font/lato_bold</item>
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="MenuItemTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Menu">
+        <item name="font">@font/lato_bold</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:textColor">@color/white_my</item>
     </style>
 
 </resources>

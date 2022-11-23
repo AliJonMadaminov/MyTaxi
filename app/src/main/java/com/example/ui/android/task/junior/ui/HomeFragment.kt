@@ -1,19 +1,25 @@
 package com.example.ui.android.task.junior.ui
 
 import android.Manifest
-import com.example.ui.android.task.junior.R
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Rect
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.provider.Settings
+import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.databinding.FragmentHomeBinding
+import com.example.ui.android.task.junior.models.ZoomLevel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,23 +31,52 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class HomeFragment : Fragment() {
-    private val REQUEST_LOCATION = 123
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var mapFragment: Fragment
+    private lateinit var myLocationViewOriginal: View
+
     private var locationPermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     private val callback = OnMapReadyCallback { googleMap ->
-        val chorsu = LatLng(41.319357679270475, 69.23037889366836)
+        val amirTemurSquare = LatLng(41.31114164054522, 69.27959980798161)
         val markerDrawable = getDrawable(requireContext(), R.drawable.blue_map_pin)
         val markerIcon =
             markerDrawable?.toBitmap(markerDrawable.intrinsicWidth, markerDrawable.intrinsicHeight)
         var marker: Marker? = googleMap.addMarker(
             MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromBitmap(markerIcon!!))
-                .position(chorsu)
+                .position(amirTemurSquare)
         )
-        val zoomLevel = 15f
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(chorsu, zoomLevel))
+        googleMap.setOnCameraIdleListener {
+            val geocoder = Geocoder(requireContext())
+            val placeNames = geocoder.getFromLocation(
+                googleMap.cameraPosition.target.latitude,
+                googleMap.cameraPosition.target.longitude,
+                2
+            )
+
+            val placeName = placeNames[0]
+            if (placeName != null && placeName.featureName != null && placeName.subLocality != null) {
+
+                binding.bottomSheetHome.txtStartDestination.text = buildString {
+                    append(placeName.subLocality)
+                    append(", ")
+                    append(placeName.featureName)
+                }
+
+            }
+        }
+
+        googleMap.setMinZoomPreference(ZoomLevel.CITY.value)
+        googleMap.setMaxZoomPreference(ZoomLevel.BUILDINGS.value)
+
+        googleMap.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                amirTemurSquare,
+                ZoomLevel.STREETS.value
+            )
+        )
 
         setMyLocationListener(googleMap)
 
@@ -58,9 +93,33 @@ class HomeFragment : Fragment() {
     private fun setMyLocationListener(googleMap: GoogleMap) {
 
         binding.imgMyLocation.setOnClickListener {
-            gotoMyLocation(googleMap)
+
+            val manager: LocationManager =
+                getSystemService(requireContext(), LocationManager::class.java) as LocationManager
+
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps();
+            } else {
+                gotoMyLocation(googleMap)
+            }
+
         }
 
+    }
+
+    private fun buildAlertMessageNoGps() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id -> dialog.cancel() }
+
+        val alert = builder.create()
+        alert.show()
     }
 
     @SuppressLint("MissingPermission")
@@ -68,17 +127,10 @@ class HomeFragment : Fragment() {
         if (locationPermissionGranted) {
             if (!googleMap.isMyLocationEnabled) {
                 googleMap.isMyLocationEnabled = true
-            }
-
-            val mapFragment =
-                childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-
-            val myLocationViewOriginal = mapFragment.requireView().findViewById<View>(0x2)
-
-            if (myLocationViewOriginal != null) {
                 myLocationViewOriginal.visibility = View.GONE
-                myLocationViewOriginal.callOnClick()
             }
+
+            myLocationViewOriginal.performClick()
         }
     }
 
@@ -117,21 +169,6 @@ class HomeFragment : Fragment() {
         )
     }
 
-//    private fun requestPermissionIfNecessary() {
-//        if (locationPermissionGranted()) {
-////            requestPermissions(
-////                requireActivity(), arrayOf(
-////                    Manifest.permission.ACCESS_COARSE_LOCATION,
-////                    Manifest.permission.ACCESS_FINE_LOCATION
-////                ),
-////                REQUEST_LOCATION
-////            )
-//
-//        } else {
-//            Toast.makeText(requireContext(), "Permission granted", Toast.LENGTH_SHORT).show()
-//
-//        }
-//    }
 
     private fun locationPermissionGranted(permissionStatuses: Map<String, Boolean>): Boolean {
         var locationPermissionGranted = true
@@ -148,8 +185,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater)
+        mapFragment =
+            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+
+        myLocationViewOriginal = mapFragment.requireView().findViewById(0x2)
 
         return binding.root
     }
@@ -158,6 +199,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        binding.imgHamburger.setOnClickListener {
+            binding.root.openDrawer(GravityCompat.START)
+        }
     }
 
     override fun onDestroy() {

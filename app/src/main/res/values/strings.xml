@@ -7,4 +7,9 @@
     <string name="to_destination">Куда?</string>
     <string name="location_permission_denied">Location permission not granted</string>
     <string name="permission_request_explanation">Please provide permission in order to automatically detect you location</string>
+    <string name="my_trips">Мои поездки</string>
+    <string name="payment_methods">Способы оплаты</string>
+    <string name="favourite_addresses">Избранные адреса</string>
+
+    <string name="full_name">$s\n$s</string>
 </resources>
