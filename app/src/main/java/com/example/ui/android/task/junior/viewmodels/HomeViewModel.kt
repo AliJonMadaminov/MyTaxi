@@ -1,21 +1,20 @@
 package com.example.ui.android.task.junior.viewmodels
 
 import android.app.Application
+import android.location.Address
 import android.location.Geocoder
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.*
 import com.example.ui.android.task.junior.R
-import com.example.ui.android.task.junior.drawableToBitmap
 import com.example.ui.android.task.junior.models.Client
 import com.example.ui.android.task.junior.models.ZoomLevel
+import com.example.ui.android.task.junior.utils.drawableToBitmap
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(app: Application) : AndroidViewModel(app) {
@@ -28,33 +27,31 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
     val currentLocationName: LiveData<String>
         get() = _currentLocationName
 
+
     fun initializeMarker(googleMap: GoogleMap) {
-        if (marker != null) {
-            return
-        }
-
-        val amirTemurSquare = LatLng(41.31114164054522, 69.27959980798161)
-        val markerDrawable = AppCompatResources.getDrawable(
-            getApplication<Application>().applicationContext,
-            R.drawable.blue_map_pin
-        )
-
         viewModelScope.launch {
-            val markerIcon = drawableToBitmap(markerDrawable)
-            marker = googleMap.addMarker(
-                MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromBitmap(markerIcon!!))
-                    .position(amirTemurSquare)
-            )
+            if (marker == null) {
+                val amirTemurSquare = LatLng(41.31114164054522, 69.27959980798161)
+                val markerDrawable = AppCompatResources.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.blue_map_pin
+                )
+
+                val markerIcon = drawableToBitmap(markerDrawable)
+                marker = googleMap.addMarker(
+                    MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(markerIcon!!))
+                        .position(amirTemurSquare)
+                )
+            }
 
             googleMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    amirTemurSquare,
+                    marker?.position!!,
                     ZoomLevel.STREETS.value
                 )
             )
         }
-
     }
 
     fun moveMarkerWithCamera(googleMap: GoogleMap) {
@@ -74,8 +71,14 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                 2
             )
 
+            updateCurrentLocationName(placeNames)
+        }
+    }
+
+    private fun updateCurrentLocationName(placeNames: MutableList<Address>) {
+        if (placeNames.isNotEmpty()) {
             val placeName = placeNames[0]
-            if (placeName != null && placeName.featureName != null && placeName.subLocality != null) {
+            if (placeName.featureName != null && placeName.subLocality != null) {
 
                 _currentLocationName.postValue(buildString {
                     append(placeName.subLocality)
@@ -83,8 +86,6 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                     append(placeName.featureName)
                 })
             }
-
-
         }
     }
 

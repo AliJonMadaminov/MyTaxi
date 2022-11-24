@@ -12,4 +12,7 @@
     <string name="favourite_addresses">Избранные адреса</string>
 
     <string name="full_name">$s\n$s</string>
+    <string name="enable_gps_message">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

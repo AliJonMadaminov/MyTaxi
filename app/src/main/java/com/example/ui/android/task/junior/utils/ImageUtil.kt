@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior
+package com.example.ui.android.task.junior.utils
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
