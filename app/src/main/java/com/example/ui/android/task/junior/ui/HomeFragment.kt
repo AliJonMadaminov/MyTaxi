@@ -10,7 +10,6 @@ import android.provider.Settings
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.GravityCompat
@@ -25,18 +24,19 @@ import com.example.ui.android.task.junior.databinding.NavHeaderBinding
 import com.example.ui.android.task.junior.models.ZoomLevel
 import com.example.ui.android.task.junior.requestLocationPermission
 import com.example.ui.android.task.junior.utils.addMarkerIfNecessary
-import com.example.ui.android.task.junior.utils.drawableToBitmap
 import com.example.ui.android.task.junior.utils.setMinMaxZoomPreferences
 import com.example.ui.android.task.junior.viewmodels.HomeViewModel
 import com.example.ui.android.task.junior.viewmodels.HomeViewModelFactory
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
+
+    private val uiScope = CoroutineScope(Dispatchers.Main)
     private lateinit var binding: FragmentHomeBinding
     private lateinit var myLocationViewOriginal: View
     private var marker: Marker? = null
@@ -49,13 +49,16 @@ class HomeFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         val markerIcon = getDrawable(requireContext(), R.drawable.blue_map_pin)
+        val geocoder = Geocoder(requireContext())
         viewModel.currentLocation.value?.let {
             marker = googleMap.addMarkerIfNecessary(marker, markerIcon, it)
         }
         observeCurrentLocation(googleMap)
         moveMarkerWithCamera(googleMap)
+        googleMap.setOnCameraIdleListener {
+            viewModel.updateCurrentLocationName(geocoder, googleMap.cameraPosition.target)
+        }
         gotoMyLocation(googleMap)
-        viewModel.updateCurrentLocationNameOnCameIdle(googleMap, Geocoder(requireContext()))
 
         googleMap.setMinMaxZoomPreferences()
 
@@ -181,7 +184,9 @@ class HomeFragment : Fragment() {
     fun moveMarkerWithCamera(googleMap: GoogleMap) {
         googleMap.setOnCameraMoveListener {
             if (marker != null) {
-                viewModel.currentLocation.value = googleMap.cameraPosition.target
+                uiScope.launch {
+                    viewModel.currentLocation.postValue(googleMap.cameraPosition.target)
+                }
             }
         }
     }
@@ -191,7 +196,6 @@ class HomeFragment : Fragment() {
         val navHeaderBinding = NavHeaderBinding.bind(headerView)
         navHeaderBinding.client = viewModel.client
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
