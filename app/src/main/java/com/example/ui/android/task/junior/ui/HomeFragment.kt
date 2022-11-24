@@ -27,14 +27,14 @@ import com.example.ui.android.task.junior.requestLocationPermission
 import com.example.ui.android.task.junior.utils.addMarkerIfNecessary
 import com.example.ui.android.task.junior.utils.setMinMaxZoomPreferences
 import com.example.ui.android.task.junior.viewmodels.HomeViewModel
-import com.example.ui.android.task.junior.viewmodels.HomeViewModelFactory
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.Marker
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val uiScope = CoroutineScope(Dispatchers.Main)
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
     private var locationPermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
-    private lateinit var viewModel: HomeViewModel
+    lateinit var viewModel: HomeViewModel
 
     private val callback = OnMapReadyCallback { googleMap ->
         val markerIcon = getDrawable(requireContext(), R.drawable.blue_map_pin)
@@ -195,8 +195,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeViewModel() {
-        val viewModelFactory = HomeViewModelFactory(requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     private fun bindData() {

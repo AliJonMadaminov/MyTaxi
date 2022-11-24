@@ -1,11 +1,13 @@
 package com.example.ui.android.task.junior.models.user.client
 
-import com.example.ui.android.task.junior.models.abstractions.BaseTrip
+import com.example.ui.android.task.junior.models.trip.BaseTrip
 import com.example.ui.android.task.junior.models.user.User
 import javax.inject.Inject
 
-abstract class BaseClient @Inject constructor() : User() {
+abstract class BaseClient() : User() {
 
-    abstract val trips:List<BaseTrip>
+    val trips:MutableList<BaseTrip> = mutableListOf()
+
+    abstract fun getClientFullName():String
 
 }

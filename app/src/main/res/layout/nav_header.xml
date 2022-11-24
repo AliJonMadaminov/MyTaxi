@@ -7,7 +7,7 @@
 
         <variable
             name="client"
-            type="com.example.ui.android.task.junior.models.user.client.Client" />
+            type="com.example.ui.android.task.junior.models.user.client.BaseClient" />
     </data>
 
     <androidx.cardview.widget.CardView

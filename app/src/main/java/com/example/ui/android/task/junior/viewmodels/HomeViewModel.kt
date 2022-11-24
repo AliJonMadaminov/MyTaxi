@@ -1,18 +1,24 @@
 package com.example.ui.android.task.junior.viewmodels
 
-import android.app.Application
 import android.location.Address
 import android.location.Geocoder
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.ui.android.task.junior.R
+import com.example.ui.android.task.junior.models.user.client.BaseClient
 import com.example.ui.android.task.junior.models.user.client.Client
 import com.example.ui.android.task.junior.repositories.HomeRepository
 import com.example.ui.android.task.junior.utils.getCurrentAddress
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel(val homeRepository: HomeRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(homeRepository: HomeRepository) : ViewModel() {
 
-    val client = Client("Iroda", "Saidova", "+998(93) 000-11-22", R.drawable.girl, listOf())
+    val client: BaseClient = homeRepository.clientDataSource.getClient()
 
     val currentLocation: MutableLiveData<LatLng> =
         MutableLiveData(LatLng(41.31114164054522, 69.27959980798161))
@@ -39,17 +45,6 @@ class HomeViewModel(val homeRepository: HomeRepository) : ViewModel() {
                 })
             }
         }
-    }
-
-}
-
-class HomeViewModelFactory(private val repository: HomeRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(repository) as T
-        }
-
-        throw java.lang.IllegalArgumentException("Unknown class has been passed. Expected: HomeViewModel")
     }
 
 }

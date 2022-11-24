@@ -1,6 +1,7 @@
 package com.example.ui.android.task.junior.di
 
 import com.example.ui.android.task.junior.models.ClientDataSource
+import com.example.ui.android.task.junior.models.ClientInMemoryDataSource
 import com.example.ui.android.task.junior.models.user.User
 import com.example.ui.android.task.junior.models.user.client.BaseClient
 import com.example.ui.android.task.junior.models.user.client.Client
@@ -17,7 +18,7 @@ abstract class ClientModule {
 
     @Singleton
     @Binds
-    abstract fun provideClientDataSource():ClientDataSource
+    abstract fun provideClientDataSource(clientInMemoryDataSource: ClientInMemoryDataSource):ClientDataSource
 
     @Singleton
     @Binds

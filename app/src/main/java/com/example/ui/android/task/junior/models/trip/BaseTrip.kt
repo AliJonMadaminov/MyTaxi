@@ -1,5 +1,6 @@
-package com.example.ui.android.task.junior.models.abstractions
+package com.example.ui.android.task.junior.models.trip
 
+import com.example.ui.android.task.junior.models.user.driver.BaseDriver
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 
@@ -7,28 +8,28 @@ abstract class BaseTrip {
     abstract val startDestination:LatLng
     abstract val endDestination:LatLng
     abstract val tripPath:PolylineOptions
-    abstract val generalTripInfo:GeneralTripInfo
-    abstract val paymentInfo:PaymentInfo
+    abstract val generalTripInfo:BaseGeneralTripInfo
+    abstract val paymentInfo:BasePaymentInfo
     abstract val driver:BaseDriver
 }
 
-abstract class GeneralTripInfo {
+abstract class BaseGeneralTripInfo {
     abstract val tripType:TripType
     abstract val paymentMethod:PaymentMethod
     abstract val orderNumber:Int
     abstract val tripStartTime:Long
     abstract val tripEndTime:Long
 
-    abstract fun getTripDuration()
+    abstract fun getTripDuration(): Long
 }
 
-abstract class PaymentInfo {
+abstract class BasePaymentInfo {
     abstract val minPrice:Int
     abstract val highDemand:Int
     abstract val tripPrice:Int
     abstract val waitPrice:Int
 
-    abstract fun calculateTotalPrice()
+    abstract fun calculateTotalPrice(): Int
 }
 
 enum class TripType {

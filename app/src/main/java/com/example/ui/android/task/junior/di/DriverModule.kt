@@ -6,21 +6,23 @@ import com.example.ui.android.task.junior.models.user.driver.Driver
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Qualifier
 
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 @Module
 abstract class DriverModule {
 
-    @FragmentScoped
+    @ActivityRetainedScoped
     @Binds
     abstract fun provideBaseDriver(driver: Driver): BaseDriver
 
 
     @DriverUser
-    @FragmentScoped
+    @ActivityRetainedScoped
     @Binds
     abstract fun provideUser(baseDriver: BaseDriver): User
 
