@@ -21,46 +21,11 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
     val client = Client("Iroda", "Saidova", "+998(93) 000-11-22", R.drawable.girl, listOf())
 
-    private var marker: Marker? = null
+    val currentLocation:MutableLiveData<LatLng> = MutableLiveData(LatLng(41.31114164054522, 69.27959980798161))
 
     private val _currentLocationName: MutableLiveData<String> = MutableLiveData()
     val currentLocationName: LiveData<String>
         get() = _currentLocationName
-
-
-    fun initializeMarker(googleMap: GoogleMap) {
-        viewModelScope.launch {
-            if (marker == null) {
-                val amirTemurSquare = LatLng(41.31114164054522, 69.27959980798161)
-                val markerDrawable = AppCompatResources.getDrawable(
-                    getApplication<Application>().applicationContext,
-                    R.drawable.blue_map_pin
-                )
-
-                val markerIcon = drawableToBitmap(markerDrawable)
-                marker = googleMap.addMarker(
-                    MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(markerIcon!!))
-                        .position(amirTemurSquare)
-                )
-            }
-
-            googleMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    marker?.position!!,
-                    ZoomLevel.STREETS.value
-                )
-            )
-        }
-    }
-
-    fun moveMarkerWithCamera(googleMap: GoogleMap) {
-        googleMap.setOnCameraMoveListener {
-            if (marker != null) {
-                marker?.position = googleMap.cameraPosition.target
-            }
-        }
-    }
 
     fun updateCurrentLocationNameOnCameIdle(googleMap: GoogleMap, geocoder: Geocoder) {
         googleMap.setOnCameraIdleListener {
@@ -87,11 +52,6 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                 })
             }
         }
-    }
-
-    fun setMinMaxZoomPreferences(googleMap: GoogleMap) {
-        googleMap.setMinZoomPreference(ZoomLevel.CITY.value)
-        googleMap.setMaxZoomPreference(ZoomLevel.BUILDINGS.value)
     }
 
 }

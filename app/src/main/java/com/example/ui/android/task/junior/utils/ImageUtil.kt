@@ -7,8 +7,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-suspend fun drawableToBitmap(markerDrawable: Drawable?): Bitmap? {
-    return CoroutineScope(Dispatchers.Default).async {
-        markerDrawable?.toBitmap(markerDrawable.intrinsicWidth, markerDrawable.intrinsicHeight)
-    }.await()
+fun drawableToBitmap(markerDrawable: Drawable?): Bitmap? {
+    return markerDrawable?.toBitmap(markerDrawable.intrinsicWidth, markerDrawable.intrinsicHeight)
 }

@@ -1,6 +1,5 @@
 package com.example.ui.android.task.junior.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
@@ -9,10 +8,10 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -23,22 +22,25 @@ import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.allPermissionsGranted
 import com.example.ui.android.task.junior.databinding.FragmentHomeBinding
 import com.example.ui.android.task.junior.databinding.NavHeaderBinding
+import com.example.ui.android.task.junior.models.ZoomLevel
 import com.example.ui.android.task.junior.requestLocationPermission
+import com.example.ui.android.task.junior.utils.addMarkerIfNecessary
+import com.example.ui.android.task.junior.utils.drawableToBitmap
+import com.example.ui.android.task.junior.utils.setMinMaxZoomPreferences
 import com.example.ui.android.task.junior.viewmodels.HomeViewModel
 import com.example.ui.android.task.junior.viewmodels.HomeViewModelFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.runBlocking
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var myLocationViewOriginal: View
+    private var marker: Marker? = null
+
 
     private var locationPermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -46,17 +48,19 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     private val callback = OnMapReadyCallback { googleMap ->
-
+        val markerIcon = getDrawable(requireContext(), R.drawable.blue_map_pin)
+        viewModel.currentLocation.value?.let {
+            marker = googleMap.addMarkerIfNecessary(marker, markerIcon, it)
+        }
+        observeCurrentLocation(googleMap)
+        moveMarkerWithCamera(googleMap)
         gotoMyLocation(googleMap)
         viewModel.updateCurrentLocationNameOnCameIdle(googleMap, Geocoder(requireContext()))
 
-        viewModel.setMinMaxZoomPreferences(googleMap)
+        googleMap.setMinMaxZoomPreferences()
 
-        viewModel.initializeMarker(googleMap)
 
         setMyLocationClickListener(googleMap)
-
-        viewModel.moveMarkerWithCamera(googleMap)
 
     }
 
@@ -143,6 +147,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync(callback)
 
         NavigationUI.setupWithNavController(binding.navView, findNavController())
         initializeViewModel()
@@ -161,6 +166,26 @@ class HomeFragment : Fragment() {
         bindUserData()
     }
 
+    private fun observeCurrentLocation(googleMap: GoogleMap) {
+        viewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
+            marker?.position = currentLocation
+            googleMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    (marker?.position!!),
+                    ZoomLevel.STREETS.value
+                )
+            )
+        }
+    }
+
+    fun moveMarkerWithCamera(googleMap: GoogleMap) {
+        googleMap.setOnCameraMoveListener {
+            if (marker != null) {
+                viewModel.currentLocation.value = googleMap.cameraPosition.target
+            }
+        }
+    }
+
     private fun bindUserData() {
         val headerView = binding.navView.getHeaderView(0)
         val navHeaderBinding = NavHeaderBinding.bind(headerView)
@@ -170,7 +195,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mapView.getMapAsync(callback)
         myLocationViewOriginal = binding.mapView.findViewById(0x2)!!
         binding.imgHamburger.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -197,9 +221,11 @@ class HomeFragment : Fragment() {
         binding.mapView.onStop()
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         binding.mapView.onDestroy()
-        super.onDestroy()
+        marker?.remove()
+        marker = null
+        super.onDestroyView()
     }
 
     override fun onLowMemory() {
