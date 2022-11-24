@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior.models.abstractions
+package com.example.ui.android.task.junior.models.user
 
 import android.graphics.drawable.Drawable
 

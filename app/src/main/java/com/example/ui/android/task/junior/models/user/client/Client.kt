@@ -1,8 +1,5 @@
-package com.example.ui.android.task.junior.models
+package com.example.ui.android.task.junior.models.user.client
 
-import android.graphics.drawable.Drawable
-import com.example.ui.android.task.junior.R
-import com.example.ui.android.task.junior.models.abstractions.BaseClient
 import com.example.ui.android.task.junior.models.abstractions.BaseTrip
 
 data class Client(

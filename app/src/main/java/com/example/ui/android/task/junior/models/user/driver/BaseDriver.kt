@@ -1,6 +1,6 @@
-package com.example.ui.android.task.junior.models.abstractions
+package com.example.ui.android.task.junior.models.user.driver
 
-import com.example.ui.android.task.junior.models.abstractions.User
+import com.example.ui.android.task.junior.models.user.User
 
 abstract class BaseDriver : User(){
     abstract val rating:Rating

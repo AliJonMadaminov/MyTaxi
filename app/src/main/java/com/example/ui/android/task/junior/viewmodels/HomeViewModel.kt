@@ -5,11 +5,12 @@ import android.location.Address
 import android.location.Geocoder
 import androidx.lifecycle.*
 import com.example.ui.android.task.junior.R
-import com.example.ui.android.task.junior.models.Client
+import com.example.ui.android.task.junior.models.user.client.Client
+import com.example.ui.android.task.junior.repositories.HomeRepository
 import com.example.ui.android.task.junior.utils.getCurrentAddress
 import com.google.android.gms.maps.model.LatLng
 
-class HomeViewModel(app: Application) : AndroidViewModel(app) {
+class HomeViewModel(val homeRepository: HomeRepository) : ViewModel() {
 
     val client = Client("Iroda", "Saidova", "+998(93) 000-11-22", R.drawable.girl, listOf())
 
@@ -42,10 +43,10 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
 }
 
-class HomeViewModelFactory(private val app: Application) : ViewModelProvider.Factory {
+class HomeViewModelFactory(private val repository: HomeRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(app) as T
+            return HomeViewModel(repository) as T
         }
 
         throw java.lang.IllegalArgumentException("Unknown class has been passed. Expected: HomeViewModel")

@@ -3,6 +3,7 @@ package com.example.ui.android.task.junior.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
@@ -50,21 +51,54 @@ class HomeFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         val markerIcon = getDrawable(requireContext(), R.drawable.blue_map_pin)
         val geocoder = Geocoder(requireContext())
+        initializeMarker(googleMap, markerIcon)
+        observeCurrentLocation(googleMap)
+        moveMarkerWithCamera(googleMap)
+        updateLocationNameOnCameraIdle(googleMap, geocoder)
+        gotoMyLocation(googleMap)
+        googleMap.setMinMaxZoomPreferences()
+        setMyLocationClickListener(googleMap)
+
+    }
+
+    private fun initializeMarker(
+        googleMap: GoogleMap,
+        markerIcon: Drawable?
+    ) {
         viewModel.currentLocation.value?.let {
             marker = googleMap.addMarkerIfNecessary(marker, markerIcon, it)
         }
-        observeCurrentLocation(googleMap)
-        moveMarkerWithCamera(googleMap)
+    }
+
+    private fun observeCurrentLocation(googleMap: GoogleMap) {
+        viewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
+            marker?.position = currentLocation
+            googleMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    (marker?.position!!),
+                    ZoomLevel.STREETS.value
+                )
+            )
+        }
+    }
+
+    fun moveMarkerWithCamera(googleMap: GoogleMap) {
+        googleMap.setOnCameraMoveListener {
+            if (marker != null) {
+                uiScope.launch {
+                    viewModel.currentLocation.postValue(googleMap.cameraPosition.target)
+                }
+            }
+        }
+    }
+
+    private fun updateLocationNameOnCameraIdle(
+        googleMap: GoogleMap,
+        geocoder: Geocoder
+    ) {
         googleMap.setOnCameraIdleListener {
             viewModel.updateCurrentLocationName(geocoder, googleMap.cameraPosition.target)
         }
-        gotoMyLocation(googleMap)
-
-        googleMap.setMinMaxZoomPreferences()
-
-
-        setMyLocationClickListener(googleMap)
-
     }
 
     @SuppressLint("MissingPermission")
@@ -78,6 +112,18 @@ class HomeFragment : Fragment() {
             } else {
                 showAlertMessageNoGps();
             }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun gotoMyLocation(googleMap: GoogleMap) {
+        if (locationPermissionGranted) {
+            if (!googleMap.isMyLocationEnabled) {
+                googleMap.isMyLocationEnabled = true
+                myLocationViewOriginal.visibility = View.GONE
+            }
+
+            myLocationViewOriginal.performClick()
         }
     }
 
@@ -96,17 +142,7 @@ class HomeFragment : Fragment() {
         alert.show()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun gotoMyLocation(googleMap: GoogleMap) {
-        if (locationPermissionGranted) {
-            if (!googleMap.isMyLocationEnabled) {
-                googleMap.isMyLocationEnabled = true
-                myLocationViewOriginal.visibility = View.GONE
-            }
 
-            myLocationViewOriginal.performClick()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,28 +203,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         bindUserData()
-    }
-
-    private fun observeCurrentLocation(googleMap: GoogleMap) {
-        viewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
-            marker?.position = currentLocation
-            googleMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    (marker?.position!!),
-                    ZoomLevel.STREETS.value
-                )
-            )
-        }
-    }
-
-    fun moveMarkerWithCamera(googleMap: GoogleMap) {
-        googleMap.setOnCameraMoveListener {
-            if (marker != null) {
-                uiScope.launch {
-                    viewModel.currentLocation.postValue(googleMap.cameraPosition.target)
-                }
-            }
-        }
     }
 
     private fun bindUserData() {
