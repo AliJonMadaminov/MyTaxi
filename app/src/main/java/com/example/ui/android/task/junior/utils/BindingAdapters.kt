@@ -1,7 +1,10 @@
 package com.example.ui.android.task.junior.utils
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.example.ui.android.task.junior.R
+import com.example.ui.android.task.junior.models.trip.TripType
 import de.hdodenhof.circleimageview.CircleImageView
 
 @BindingAdapter("imgSource")
@@ -9,12 +12,22 @@ fun CircleImageView.setImgSource(imgResource:Int) {
     this.setImageResource(imgResource)
 }
 
+@BindingAdapter("carImage")
+fun ImageView.setCarImage(tripType: TripType) {
+    val imgRes = when(tripType) {
+        TripType.NORMAL -> R.drawable.taxi
+        TripType.DELIVERY -> R.drawable.delivery
+        else -> R.drawable.business
+    }
+    setImageResource(imgRes)
+}
+
 @BindingAdapter("time")
 fun TextView.setTimeFormatted(time:Long) {
     text = getFormattedTime(time)
 }
 
-@BindingAdapter("priceAndCurrency", requireAll = true)
+@BindingAdapter(*["price", "currency"], requireAll = true)
 fun TextView.setPriceFormatted(price:Int, currency:String) {
     var priceWithoutSpaces = price.toString()
     var priceFormatted = ""

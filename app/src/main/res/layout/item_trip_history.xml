@@ -83,10 +83,11 @@
                     android:layout_marginTop="@dimen/medium_spacing"
                     android:layout_marginEnd="@dimen/small_spacing"
                     android:layout_marginBottom="12dp"
+                    app:carImage="@{trip.generalTripInfo.tripType}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_to"
-                    app:srcCompat="@drawable/comfort" />
+                    app:srcCompat="@drawable/business" />
 
                 <TextView
                     android:id="@+id/txt_start_time"
@@ -95,8 +96,8 @@
                     android:layout_marginStart="@dimen/medium_spacing"
                     app:layout_constraintBottom_toBottomOf="@+id/img_car"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="21:36"
-                    android:text="@{}"/>
+                    app:time="@{trip.generalTripInfo.tripStartTime}"
+                    tools:text="21:36" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -113,9 +114,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    app:currency="@string/currency"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_start_time"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="@+id/txt_start_time"
+                    app:price="@{trip.paymentInfo.calculateTotalPrice()}"
                     tools:text="12 900 sum" />
 
 

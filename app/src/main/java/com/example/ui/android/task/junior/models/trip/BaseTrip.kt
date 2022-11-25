@@ -35,7 +35,7 @@ abstract class BasePaymentInfo {
 data class Destination(val name:String, val location:LatLng)
 
 enum class TripType {
-    NORMAL, COMFORT, BUSINESS;
+    NORMAL, DELIVERY, BUSINESS;
 
     override fun toString(): String {
         return this.name.lowercase()
