@@ -22,8 +22,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
     )
 
     init {
-        val startDestination = LatLng(41.293431033389595, 69.24530499780752)
-        val endDestination = LatLng(41.36742101649703, 69.29101559781)
+        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752))
+        val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781))
         val tripPath = PolylineOptions()
             .add(LatLng(41.304380412956036, 69.2469597559426))
             .add(LatLng(41.32617005974921, 69.24455649670386))
@@ -55,8 +55,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
 
         client.trips.add(
             Trip(
-                startDestination = LatLng(41.36742101649703, 69.29101559781),
-                endDestination = LatLng(41.293431033389595, 69.24530499780752),
+                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,

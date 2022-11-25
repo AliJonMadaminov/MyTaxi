@@ -6,8 +6,8 @@ import com.google.android.gms.maps.model.PolylineOptions
 import javax.inject.Inject
 
 data class Trip @Inject constructor(
-    override val startDestination: LatLng,
-    override val endDestination: LatLng,
+    override val startDestination: Destination,
+    override val endDestination: Destination,
     override val tripPath: PolylineOptions,
     override val generalTripInfo: BaseGeneralTripInfo,
     override val paymentInfo: BasePaymentInfo,
