@@ -17,4 +17,6 @@
     <color name="lighter_black">#1b1b19</color>
     <color name="gray_for_icons">#DADADA</color>
     <color name="card_text_color">#474747</color>
+    <color name="shimmer_color">#e8e8e8</color>
+    <color name="lighter_shimmer_color">#f8f8f8</color>
 </resources>

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/tripHistoryFragment"
-        android:name="com.example.ui.android.task.junior.ui.TripHistoryFragment"
+        android:name="com.example.ui.android.task.junior.triphistory.TripHistoryFragment"
         android:label="fragment_trip_history"
         tools:layout="@layout/fragment_trip_history" >
         <action

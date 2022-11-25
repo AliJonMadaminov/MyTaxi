@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/medium_spacing"
+    android:layout_marginTop="@dimen/medium_spacing"
+    app:cardCornerRadius="@dimen/card_radius">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/medium_shimmer_height"
+            android:background="@color/shimmer_color"
+            android:layout_marginTop="@dimen/normal_spacing"
+            android:layout_marginBottom="@dimen/very_smal_spacing"
+            android:layout_marginHorizontal="@dimen/normal_spacing"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/medium_shimmer_height"
+            android:background="@color/shimmer_color"
+            android:layout_marginBottom="@dimen/normal_spacing"
+            android:layout_marginHorizontal="@dimen/normal_spacing"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lighter_shimmer_color">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/medium_shimmer_height"
+                android:background="@color/shimmer_color"
+                android:layout_marginVertical="@dimen/normal_spacing"
+                android:layout_marginHorizontal="@dimen/medium_spacing"/>
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

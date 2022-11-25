@@ -27,7 +27,12 @@ fun TextView.setTimeFormatted(time:Long) {
     text = getFormattedTime(time)
 }
 
-@BindingAdapter(*["price", "currency"], requireAll = true)
+@BindingAdapter("formattedDate")
+fun TextView.setDateFormatted(dateInMillis:Long) {
+    text = getFormattedDate(dateInMillis)
+}
+
+@BindingAdapter(value = ["bind:price", "bind:currency"], requireAll = false)
 fun TextView.setPriceFormatted(price:Int, currency:String) {
     var priceWithoutSpaces = price.toString()
     var priceFormatted = ""

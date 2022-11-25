@@ -203,7 +203,6 @@ class HomeFragment : Fragment() {
         navHeaderBinding.client = viewModel.client
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myLocationViewOriginal = binding.mapView.findViewById(0x2)!!

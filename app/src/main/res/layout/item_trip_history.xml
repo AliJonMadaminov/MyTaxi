@@ -8,17 +8,18 @@
         <variable
             name="trip"
             type="com.example.ui.android.task.junior.models.trip.BaseTrip" />
-    </data>
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <variable
+            name="clickListener"
+            type="com.example.ui.android.task.junior.triphistory.TripHistoryListener" />
+    </data>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/medium_spacing"
             android:layout_marginTop="@dimen/medium_spacing"
+            android:onClick="@{() -> clickListener.onClick(trip)}"
             app:cardCornerRadius="@dimen/card_radius">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +101,7 @@
                     tools:text="21:36" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/img_dummy_circle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -114,10 +115,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    app:currency="@string/currency"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_start_time"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/img_dummy_circle"
                     app:layout_constraintTop_toTopOf="@+id/txt_start_time"
+                    app:currency="@{@string/currency}"
                     app:price="@{trip.paymentInfo.calculateTotalPrice()}"
                     tools:text="12 900 sum" />
 
@@ -126,5 +127,4 @@
 
         </androidx.cardview.widget.CardView>
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
 </layout>
