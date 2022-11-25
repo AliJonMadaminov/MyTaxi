@@ -5,10 +5,7 @@ import android.location.Geocoder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.models.user.client.BaseClient
-import com.example.ui.android.task.junior.models.user.client.Client
 import com.example.ui.android.task.junior.repositories.HomeRepository
 import com.example.ui.android.task.junior.utils.getCurrentAddress
 import com.google.android.gms.maps.model.LatLng

@@ -17,17 +17,19 @@ fun GoogleMap.addMarkerIfNecessary(
     markerIcon: Drawable?,
     location: LatLng
 ): Marker {
-    if (marker == null) {
+    val localMarker:Marker = if (marker == null) {
 
         val markerBitmap = drawableToBitmap(markerIcon)
-        return this.addMarker(
+         this.addMarker(
             MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromBitmap(markerBitmap!!))
                 .position(location)
         )!!
+    }else{
+        marker
     }
-    moveCamera(CameraUpdateFactory.newLatLngZoom(marker.position, ZoomLevel.STREETS.value))
-    return marker
+    moveCamera(CameraUpdateFactory.newLatLngZoom(localMarker.position, ZoomLevel.STREETS.value))
+    return localMarker
 
 }
 

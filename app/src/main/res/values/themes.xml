@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.AndroidTaskJunior" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/transparent</item>
+        <item name="colorPrimaryVariant">@color/transparent</item>
         <item name="colorOnPrimary">@color/transparent</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -16,9 +16,11 @@
         <!--Transparent status bar-->
         <item name="android:windowTranslucentStatus">true</item>
 
+        <item name="android:listDivider">@color/white_my</item>
+
     </style>
 
-    
+
     <style name="ClickableStyle">
         <item name="background">?attr/selectableItemBackground</item>
         <item name="android:background">?attr/selectableItemBackground</item>
@@ -37,6 +39,10 @@
         <item name="font">@font/lato_bold</item>
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
         <item name="android:textColor">@color/white_my</item>
+    </style>
+
+    <style name="NavigationItemNoRipple">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
     </style>
 
 </resources>

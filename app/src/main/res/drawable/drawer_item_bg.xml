@@ -8,6 +8,7 @@
                 android:color="@color/light_gray" />
         </shape>
 
+        <ripple android:color="@color/white_my"/>
     </item>
 
 </layer-list>
