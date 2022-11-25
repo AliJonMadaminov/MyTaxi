@@ -5,8 +5,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 
 abstract class BaseTrip {
-    abstract val startDestination:LatLng
-    abstract val endDestination:LatLng
+    abstract val startDestination:Destination
+    abstract val endDestination:Destination
     abstract val tripPath:PolylineOptions
     abstract val generalTripInfo:BaseGeneralTripInfo
     abstract val paymentInfo:BasePaymentInfo
@@ -31,6 +31,8 @@ abstract class BasePaymentInfo {
 
     abstract fun calculateTotalPrice(): Int
 }
+
+data class Destination(val name:String, val location:LatLng)
 
 enum class TripType {
     NORMAL, COMFORT, BUSINESS;

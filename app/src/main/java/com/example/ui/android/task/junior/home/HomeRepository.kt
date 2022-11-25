@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior.repositories
+package com.example.ui.android.task.junior.home
 
 import com.example.ui.android.task.junior.models.ClientDataSource
 import javax.inject.Inject

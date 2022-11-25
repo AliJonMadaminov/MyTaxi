@@ -16,4 +16,5 @@
     <color name="light_gray">#7d7d7d</color>
     <color name="lighter_black">#1b1b19</color>
     <color name="gray_for_icons">#DADADA</color>
+    <color name="card_text_color">#474747</color>
 </resources>

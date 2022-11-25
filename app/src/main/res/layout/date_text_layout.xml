@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txt_date"
+    tools:text="6 July, Tuesday"
+    android:layout_width="match_parent"
+    android:textSize="@dimen/large_text_size"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/medium_spacing"
+    android:fontFamily="@font/lato_black">
+
+</TextView>

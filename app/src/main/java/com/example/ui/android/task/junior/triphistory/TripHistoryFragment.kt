@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior.ui
+package com.example.ui.android.task.junior.triphistory
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ui.android.task.junior.ui.HomeFragment"
+        android:name="com.example.ui.android.task.junior.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/tripDetailsFragment"
-        android:name="com.example.ui.android.task.junior.ui.TripDetailsFragment"
+        android:name="com.example.ui.android.task.junior.tripdetails.TripDetailsFragment"
         android:label="fragment_trip_details"
         tools:layout="@layout/fragment_trip_details" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior.ui
+package com.example.ui.android.task.junior.tripdetails
 
 import androidx.fragment.app.Fragment
 

@@ -1,9 +1,8 @@
-package com.example.ui.android.task.junior.ui
+package com.example.ui.android.task.junior.home
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Insets
 import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.LocationManager
@@ -24,11 +23,9 @@ import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.allPermissionsGranted
 import com.example.ui.android.task.junior.databinding.FragmentHomeBinding
 import com.example.ui.android.task.junior.databinding.NavHeaderBinding
-import com.example.ui.android.task.junior.models.ZoomLevel
 import com.example.ui.android.task.junior.requestLocationPermission
 import com.example.ui.android.task.junior.utils.addMarkerIfNecessary
 import com.example.ui.android.task.junior.utils.setMinMaxZoomPreferences
-import com.example.ui.android.task.junior.viewmodels.HomeViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.Marker
 import dagger.hilt.android.AndroidEntryPoint
