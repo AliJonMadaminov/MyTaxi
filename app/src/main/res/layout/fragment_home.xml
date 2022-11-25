@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.ui.android.task.junior.viewmodels.HomeViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.HomeFragment" />
+        <!-- Fixed issue with MapView top overlapping
+             navigation view top(under status bar)-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/img_hamburger"
+                style="@style/ClickableStyle"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="@dimen/medium_spacing"
+                android:layout_marginTop="@dimen/big_spacing"
+                android:src="@drawable/btn_gamburger_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/bottom_sheet_home"
+                layout="@layout/layout_bottom_sheet_home"
+                app:viewModel="@{viewModel}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_my_location"
+                style="@style/ClickableStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_spacing"
+                android:src="@drawable/btn_my_location_normal"
+                app:layout_constraintBottom_toTopOf="@id/bottom_sheet_home"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/lighter_black"
+            app:headerLayout="@layout/nav_header"
+            app:itemIconTint="@color/gray_for_icons"
+            app:itemRippleColor="@color/white_my"
+            app:itemTextAppearance="?attr/textAppearanceBody1"
+            app:itemTextColor="@color/white_my"
+            app:menu="@menu/navdrawer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
