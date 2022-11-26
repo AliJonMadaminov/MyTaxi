@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.ui.android.task.junior.R
+import com.example.ui.android.task.junior.databinding.FragmentTripDetailsBinding
+import com.example.ui.android.task.junior.models.ZoomLevel
+import com.example.ui.android.task.junior.models.trip.BaseTrip
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,35 +18,71 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 
-class TripDetailsFragment : Fragment() {
+@AndroidEntryPoint
+class TripDetailsFragment() : Fragment() {
+
+    lateinit var viewModel: TripDetailViewModel
+    private lateinit var binding:FragmentTripDetailsBinding
+    private lateinit var trip:BaseTrip
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val startLocation = trip.startDestination.location
+        val endLocation = trip.endDestination.location
+
+        googleMap.addMarker(MarkerOptions().position(startLocation).title(trip.startDestination.name))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, ZoomLevel.STREETS.value - 3))
+        googleMap.addPolyline(trip.tripPath)
+        googleMap.addMarker(MarkerOptions().position(endLocation))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[TripDetailViewModel::class.java]
+        val args = TripDetailsFragmentArgs.fromBundle(requireArguments())
+        trip = viewModel.getTrip(args.orderNumber)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_trip_details, container, false)
+    ): View {
+        binding = FragmentTripDetailsBinding.inflate(inflater)
+        binding.mapTripDetail.onCreate(savedInstanceState)
+        binding.mapTripDetail.getMapAsync(callback)
+
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+    override fun onStart() {
+        super.onStart()
+        binding.mapTripDetail.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapTripDetail.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapTripDetail.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.mapTripDetail.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.mapTripDetail.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapTripDetail.onLowMemory()
     }
 }
