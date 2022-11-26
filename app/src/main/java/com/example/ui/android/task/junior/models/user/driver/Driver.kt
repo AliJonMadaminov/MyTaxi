@@ -6,5 +6,6 @@ data class Driver(
     override val phoneNumber: String,
     override val profileImageRes: Int,
     override val rating: Rating,
-    override val numberOfDrives: Int
+    override val numberOfDrives: Int,
+    override val car: Car
 ) : BaseDriver()

@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TripDetailViewModel @Inject constructor(var repository: TripDetailsRepository):ViewModel() {
+class TripDetailsViewModel @Inject constructor(var repository: TripDetailsRepository):ViewModel() {
 
     fun getTrip(orderNumber:Int) = repository.getTrip(orderNumber)
 }

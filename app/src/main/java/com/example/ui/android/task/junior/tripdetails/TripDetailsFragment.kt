@@ -1,6 +1,5 @@
 package com.example.ui.android.task.junior.tripdetails
 
-import android.graphics.Bitmap
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -26,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TripDetailsFragment() : Fragment() {
 
-    lateinit var viewModel: TripDetailViewModel
+    lateinit var viewModel: TripDetailsViewModel
     private lateinit var binding: FragmentTripDetailsBinding
     private lateinit var trip: BaseTrip
 
@@ -77,7 +76,7 @@ class TripDetailsFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[TripDetailViewModel::class.java]
+        viewModel = ViewModelProvider(this)[TripDetailsViewModel::class.java]
         val args = TripDetailsFragmentArgs.fromBundle(requireArguments())
         trip = viewModel.getTrip(args.orderNumber)
     }

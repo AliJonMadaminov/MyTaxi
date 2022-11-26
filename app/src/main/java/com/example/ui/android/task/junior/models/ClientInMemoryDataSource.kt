@@ -4,6 +4,7 @@ import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.models.trip.*
 import com.example.ui.android.task.junior.models.user.client.BaseClient
 import com.example.ui.android.task.junior.models.user.client.Client
+import com.example.ui.android.task.junior.models.user.driver.Car
 import com.example.ui.android.task.junior.models.user.driver.Driver
 import com.example.ui.android.task.junior.models.user.driver.Rating
 import com.google.android.gms.maps.model.LatLng
@@ -50,7 +51,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Белый Сhevrolet Malibu", "45 M 456 C")
                 )
             )
         )
@@ -74,7 +76,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(93) 555-66-77",
                     R.drawable.driver_man,
                     Rating.GOOD_4,
-                    589
+                    589,
+                    Car("Белый Сhevrolet Malibu", "40 M 756 D")
                 )
             )
         )
@@ -98,7 +101,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Чёрный Сhevrolet Malibu", "78 K 456 Q")
                 )
             )
         )
@@ -122,7 +126,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Чёрный Сhevrolet Malibu", "32 E 486 W")
                 )
             )
         )
@@ -146,7 +151,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(93) 555-66-77",
                     R.drawable.driver_man,
                     Rating.GOOD_4,
-                    589
+                    589,
+                    Car("Белый Сhevrolet cobalt", "78 M 126 P")
                 )
             )
         )
