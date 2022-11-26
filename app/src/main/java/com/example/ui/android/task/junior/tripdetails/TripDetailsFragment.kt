@@ -6,35 +6,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.ViewModelProvider
 import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.databinding.FragmentTripDetailsBinding
 import com.example.ui.android.task.junior.models.ZoomLevel
 import com.example.ui.android.task.junior.models.trip.BaseTrip
+import com.example.ui.android.task.junior.utils.drawableToBitmap
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TripDetailsFragment() : Fragment() {
 
     lateinit var viewModel: TripDetailViewModel
-    private lateinit var binding:FragmentTripDetailsBinding
-    private lateinit var trip:BaseTrip
+    private lateinit var binding: FragmentTripDetailsBinding
+    private lateinit var trip: BaseTrip
 
     private val callback = OnMapReadyCallback { googleMap ->
         val startLocation = trip.startDestination.location
         val endLocation = trip.endDestination.location
+        val boundsBuilder = LatLngBounds.Builder()
+        val startLocationBitmap =
+            drawableToBitmap(getDrawable(requireContext(), R.drawable.from_location))
+        val endLocationBitmap =
+            drawableToBitmap(getDrawable(requireContext(), R.drawable.to_location))
 
-        googleMap.addMarker(MarkerOptions().position(startLocation).title(trip.startDestination.name))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, ZoomLevel.STREETS.value - 3))
-        googleMap.addPolyline(trip.tripPath)
-        googleMap.addMarker(MarkerOptions().position(endLocation))
+
+        googleMap.addMarker(
+            MarkerOptions().position(startLocation).title(trip.startDestination.name)
+                .icon(BitmapDescriptorFactory.fromBitmap(startLocationBitmap!!))
+        )
+        boundsBuilder.include(startLocation).include(endLocation)
+        val padding = 20
+        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), padding)
+        val polylineColor = getColor(requireContext(), R.color.polyline_color)
+        googleMap.moveCamera(cameraUpdate)
+        googleMap.addPolyline(trip.tripPath.color(polylineColor))
+        googleMap.addMarker(
+            MarkerOptions().position(endLocation)
+                .icon(BitmapDescriptorFactory.fromBitmap(endLocationBitmap!!))
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

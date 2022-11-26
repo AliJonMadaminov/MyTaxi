@@ -20,4 +20,6 @@
     <color name="shimmer_color">#e8e8e8</color>
     <color name="lighter_shimmer_color">#f8f8f8</color>
     <color name="app_bar_title_color">#434343</color>
+
+    <color name="polyline_color">#5b89ff</color>
 </resources>

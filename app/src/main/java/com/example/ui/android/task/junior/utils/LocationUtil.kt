@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-fun GoogleMap.addMarkerIfNecessary(
+fun GoogleMap.addMovingMarkerIfNecessary(
     marker: Marker?,
     markerIcon: Drawable?,
     location: LatLng
