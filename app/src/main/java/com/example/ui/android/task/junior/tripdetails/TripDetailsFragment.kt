@@ -3,6 +3,7 @@ package com.example.ui.android.task.junior.tripdetails
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,7 @@ class TripDetailsFragment() : Fragment() {
         val endLocationBitmap =
             drawableToBitmap(getDrawable(requireContext(), R.drawable.to_location))
 
-
+        setMapStyle(googleMap)
         googleMap.addMarker(
             MarkerOptions().position(startLocation).title(trip.startDestination.name)
                 .icon(BitmapDescriptorFactory.fromBitmap(startLocationBitmap!!))
@@ -72,6 +73,24 @@ class TripDetailsFragment() : Fragment() {
         binding.mapTripDetail.getMapAsync(callback)
 
         return binding.root
+    }
+
+    private fun setMapStyle(map: GoogleMap) {
+        try {
+            val success = map.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.map_style
+                )
+            )
+
+            if (!success) {
+                Log.e("MapsActivity: MapStyle", "Map style parsing failed")
+            }
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onStart() {

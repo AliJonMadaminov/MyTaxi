@@ -22,12 +22,14 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
     )
 
     init {
-        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752))
+        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014))
         val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781))
         val tripPath = PolylineOptions()
+            .add(LatLng(41.29333720207694, 69.24530188531014))
             .add(LatLng(41.304380412956036, 69.2469597559426))
             .add(LatLng(41.32617005974921, 69.24455649670386))
             .add(LatLng(41.352076073030915, 69.2651558616074))
+            .add(LatLng(41.36742101649703, 69.29101559781))
 
         client.trips.add(
             Trip(
@@ -56,7 +58,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
         client.trips.add(
             Trip(
                 startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
@@ -128,7 +130,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
         client.trips.add(
             Trip(
                 startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
