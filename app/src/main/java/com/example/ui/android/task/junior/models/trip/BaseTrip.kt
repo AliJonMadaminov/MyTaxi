@@ -38,7 +38,9 @@ enum class TripType {
     NORMAL, DELIVERY, BUSINESS;
 
     override fun toString(): String {
-        return this.name.lowercase()
+        return this.name.lowercase().replaceFirstChar {
+            it.uppercase()
+        }
     }
 }
 

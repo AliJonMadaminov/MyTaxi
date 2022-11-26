@@ -52,7 +52,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
                     1000,
-                    Car("Белый Сhevrolet Malibu", "45 M 456 C")
+                    Car("Белый Сhevrolet Malibu", "M 456 C", 45)
                 )
             )
         )
@@ -77,7 +77,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     R.drawable.driver_man,
                     Rating.GOOD_4,
                     589,
-                    Car("Белый Сhevrolet Malibu", "40 M 756 D")
+                    Car("Белый Сhevrolet Malibu", "M 756 D", 40)
                 )
             )
         )
@@ -102,7 +102,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
                     1000,
-                    Car("Чёрный Сhevrolet Malibu", "78 K 456 Q")
+                    Car("Чёрный Сhevrolet Malibu", "K 456 Q", 78)
                 )
             )
         )
@@ -127,7 +127,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
                     1000,
-                    Car("Чёрный Сhevrolet Malibu", "32 E 486 W")
+                    Car("Чёрный Сhevrolet Malibu", "E 486 W",32)
                 )
             )
         )
@@ -152,7 +152,7 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     R.drawable.driver_man,
                     Rating.GOOD_4,
                     589,
-                    Car("Белый Сhevrolet cobalt", "78 M 126 P")
+                    Car("Белый Сhevrolet cobalt", "M 126 P", 78)
                 )
             )
         )

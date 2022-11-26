@@ -42,9 +42,35 @@
     </style>
 
     <style name="AppBarTitleStyle">
-        <item name="android:textColor">@color/app_bar_title_color</item>
+        <item name="android:textColor">@color/black_my</item>
         <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/lato_bold</item>
     </style>
 
+    <style name="CarNumberTextStyle">
+        <item name="android:textColor">@color/black_my</item>
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="CarNameTextStyle">
+        <item name="android:textColor">@color/very_light_gray</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+    </style>
+
+    <style name="SmallInfoTextStyle">
+        <item name="android:textColor">@color/very_light_gray</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+    </style>
+
+    <style name="SmallInfoTextStyle.Bold">
+        <item name="android:textColor">@color/black_my</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+    </style>
+
+    <style name="BottomSheetTitleStyle">
+        <item name="android:fontFamily">@font/lato_black</item>
+        <item name="android:textColor">@color/black_my</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

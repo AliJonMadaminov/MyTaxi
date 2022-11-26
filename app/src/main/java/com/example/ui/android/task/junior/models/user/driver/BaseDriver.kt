@@ -15,4 +15,5 @@ enum class Rating(val value:Byte) {
 data class Car(
     val name:String,
     val number:String,
+    val regionNumber:Byte
 )

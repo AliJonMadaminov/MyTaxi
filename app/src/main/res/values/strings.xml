@@ -18,4 +18,16 @@
     
     <string name="currency">сум</string>
     <string name="my_trips_title">Мои Поездки</string>
+    <string name="help">Помощь</string>
+    <string name="repeat">Повторить</string>
+    <string name="call">Позвонить</string>
+    <string name="driver">Водитель</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="drives">Поездки:</string>
+    <string name="general_info">Общие Данные</string>
+    <string name="tariff">Тариф:</string>
+    <string name="payment_method">Способ оплаты:</string>
+    <string name="order_number">Заказ №:</string>
+    <string name="trip_date_and_time">Дата и время поездки:</string>
+    <string name="trip_duration">продолжительность поездки:</string>
 </resources>
