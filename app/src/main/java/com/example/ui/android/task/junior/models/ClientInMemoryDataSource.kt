@@ -22,14 +22,14 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
     )
 
     init {
-        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014))
-        val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781))
+        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546))
+        val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553))
         val tripPath = PolylineOptions()
-            .add(LatLng(41.29333720207694, 69.24530188531014))
+            .add(startDestination.location)
             .add(LatLng(41.304380412956036, 69.2469597559426))
             .add(LatLng(41.32617005974921, 69.24455649670386))
             .add(LatLng(41.352076073030915, 69.2651558616074))
-            .add(LatLng(41.36742101649703, 69.29101559781))
+            .add(endDestination.location)
 
         client.trips.add(
             Trip(
@@ -57,8 +57,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
 
         client.trips.add(
             Trip(
-                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014)),
+                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
@@ -129,8 +129,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
 
         client.trips.add(
             Trip(
-                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29333720207694, 69.24530188531014)),
+                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
