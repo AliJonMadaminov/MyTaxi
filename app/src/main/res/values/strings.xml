@@ -30,4 +30,9 @@
     <string name="order_number">Заказ №:</string>
     <string name="trip_date_and_time">Дата и время поездки:</string>
     <string name="trip_duration">продолжительность поездки:</string>
+    <string name="cost_calculation">Расчёт стоимости</string>
+    <string name="minimal_price">Минимальная сумма:</string>
+    <string name="high_demand">Повышенный спрос:</string>
+    <string name="trip_price">Сумма поездки:</string>
+    <string name="total">Итого</string>
 </resources>

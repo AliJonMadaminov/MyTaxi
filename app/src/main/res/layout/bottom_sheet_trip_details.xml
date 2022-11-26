@@ -18,6 +18,7 @@
         <include
             android:id="@+id/include_car_number"
             layout="@layout/car_number"
+            app:driver="@{trip.driver}"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,9 +36,8 @@
             android:id="@+id/img_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_spacing"
             app:layout_constraintBottom_toBottomOf="@+id/txt_car_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/include_car_number"
             app:srcCompat="@drawable/delivery" />
 
@@ -47,7 +47,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/small_spacing"
             android:background="@color/gray_divider_color"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/txt_car_name" />
 
@@ -95,18 +95,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_spacing"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_end_destination" />
 
         <include
             android:id="@+id/driver_info"
             layout="@layout/driver"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:driver="@{trip.driver}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/buttons" />
+
+        <include
+            android:id="@+id/general_info"
+            layout="@layout/general_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:generalInfo="@{trip.generalTripInfo}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/driver_info" />
+
+        <include
+            android:id="@+id/payment_info"
+            layout="@layout/payment_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:paymentInfo="@{trip.paymentInfo}"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/general_info" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -114,6 +137,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="@dimen/medium_spacing" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

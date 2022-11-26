@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="generalInfo"
-            type="com.example.ui.android.task.junior.models.trip.GeneralTripInfo" />
+            name="paymentInfo"
+            type="com.example.ui.android.task.junior.models.trip.PaymentInfo" />
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
             style="@style/BottomSheetTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/general_info" />
+            android:text="@string/cost_calculation" />
 
         <View
             android:id="@+id/divider"
@@ -37,19 +37,18 @@
                 style="@style/SmallInfoTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tariff" />
+                android:text="@string/minimal_price" />
 
             <TextView
-                android:id="@+id/txt_trip_type"
+                android:id="@+id/txt_min_price"
                 style="@style/SmallInfoTextStyle.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@{generalInfo.tripType.toString()}"
-                tools:text="Business" />
+                android:text="@{String.valueOf(paymentInfo.minPrice)}"
+                tools:text="5000" />
 
         </FrameLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,24 +60,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/payment_method" />
+                android:text="@string/high_demand" />
 
             <ImageView
-                android:id="@+id/img_payment_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/small_spacing"
-                app:paymentMethod="@{generalInfo.paymentMethod}"
-                tools:src="@drawable/money_cash" />
+                android:src="@drawable/thunder" />
 
             <TextView
-                android:id="@+id/txt_payment_info"
+                android:id="@+id/txt_high_demand"
                 style="@style/SmallInfoTextStyle.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@{generalInfo.tripType.toString()}"
-                tools:text="Cash" />
+                android:text="@{String.valueOf(paymentInfo.highDemand)}"
+                tools:text="3000" />
 
         </LinearLayout>
 
@@ -91,16 +88,16 @@
                 style="@style/SmallInfoTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/order_number" />
+                android:text="@string/trip_price" />
 
             <TextView
-                android:id="@+id/txt_order_number"
+                android:id="@+id/txt_trip_price"
                 style="@style/SmallInfoTextStyle.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@{String.valueOf(generalInfo.orderNumber)}"
-                tools:text="4568" />
+                android:text="@{String.valueOf(paymentInfo.tripPrice)}"
+                tools:text="5000" />
 
         </FrameLayout>
 
@@ -113,39 +110,45 @@
                 style="@style/SmallInfoTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/trip_date_and_time" />
+                android:text="@string/trip_price" />
 
             <TextView
-                android:id="@+id/txt_trip_time"
+                android:id="@+id/txt_wait_price"
                 style="@style/SmallInfoTextStyle.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                app:dateAndTime="@{generalInfo.tripStartTime}"
-                tools:text="12 July, 24:00" />
+                android:text="@{String.valueOf(paymentInfo.waitPrice)}"
+                tools:text="0" />
 
         </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@color/gray_divider_color" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_spacing">
+            android:layout_marginTop="@dimen/large_spacing">
 
             <TextView
-                style="@style/SmallInfoTextStyle"
+                style="@style/BottomSheetTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/trip_duration"
-                />
+                android:text="@string/total" />
 
             <TextView
-                android:id="@+id/txt_trip_duration"
+                android:id="@+id/txt_total"
                 style="@style/SmallInfoTextStyle.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                app:time="@{generalInfo.getTripDuration()}"
-                tools:text="24:00" />
+                app:price="@{paymentInfo.calculateTotalPrice()}"
+                app:currency="@{@string/currency}"
+                tools:text="56600 sum" />
 
         </FrameLayout>
 
