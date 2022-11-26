@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="paymentInfo"
+            type="com.example.ui.android.task.junior.models.trip.BasePaymentInfo" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/BottomSheetTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cost_calculation" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@color/gray_divider_color" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minimal_price" />
+
+            <TextView
+                android:id="@+id/txt_min_price"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{String.valueOf(paymentInfo.minPrice)}"
+                tools:text="5000" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/high_demand" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_spacing"
+                android:src="@drawable/thunder" />
+
+            <TextView
+                android:id="@+id/txt_high_demand"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{String.valueOf(paymentInfo.highDemand)}"
+                tools:text="3000" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trip_price" />
+
+            <TextView
+                android:id="@+id/txt_trip_price"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{String.valueOf(paymentInfo.tripPrice)}"
+                tools:text="5000" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trip_price" />
+
+            <TextView
+                android:id="@+id/txt_wait_price"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{String.valueOf(paymentInfo.waitPrice)}"
+                tools:text="0" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@color/gray_divider_color" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing">
+
+            <TextView
+                style="@style/BottomSheetTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total" />
+
+            <TextView
+                android:id="@+id/txt_total"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:price="@{paymentInfo.calculateTotalPrice()}"
+                app:currency="@{@string/currency}"
+                tools:text="56600 sum" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

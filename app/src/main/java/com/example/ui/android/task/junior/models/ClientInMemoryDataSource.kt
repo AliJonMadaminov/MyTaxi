@@ -4,6 +4,7 @@ import com.example.ui.android.task.junior.R
 import com.example.ui.android.task.junior.models.trip.*
 import com.example.ui.android.task.junior.models.user.client.BaseClient
 import com.example.ui.android.task.junior.models.user.client.Client
+import com.example.ui.android.task.junior.models.user.driver.Car
 import com.example.ui.android.task.junior.models.user.driver.Driver
 import com.example.ui.android.task.junior.models.user.driver.Rating
 import com.google.android.gms.maps.model.LatLng
@@ -22,12 +23,14 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
     )
 
     init {
-        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752))
-        val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781))
+        val startDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546))
+        val endDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553))
         val tripPath = PolylineOptions()
+            .add(startDestination.location)
             .add(LatLng(41.304380412956036, 69.2469597559426))
             .add(LatLng(41.32617005974921, 69.24455649670386))
             .add(LatLng(41.352076073030915, 69.2651558616074))
+            .add(endDestination.location)
 
         client.trips.add(
             Trip(
@@ -48,15 +51,16 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Белый Сhevrolet Malibu", "M 456 C", 45)
                 )
             )
         )
 
         client.trips.add(
             Trip(
-                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752)),
+                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
@@ -72,7 +76,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(93) 555-66-77",
                     R.drawable.driver_man,
                     Rating.GOOD_4,
-                    589
+                    589,
+                    Car("Белый Сhevrolet Malibu", "M 756 D", 40)
                 )
             )
         )
@@ -96,7 +101,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Чёрный Сhevrolet Malibu", "K 456 Q", 78)
                 )
             )
         )
@@ -120,15 +126,16 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(94) 666-77-88",
                     R.drawable.driver_man,
                     Rating.VERY_GOOD_5,
-                    1000
+                    1000,
+                    Car("Чёрный Сhevrolet Malibu", "E 486 W",32)
                 )
             )
         )
 
         client.trips.add(
             Trip(
-                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36742101649703, 69.29101559781)),
-                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.293431033389595, 69.24530499780752)),
+                startDestination = Destination("Mega Planet, Yunusobod",LatLng(41.36726047554213, 69.29100737678553)),
+                endDestination = Destination("Rakat mahalla, Yakkasaroy",LatLng(41.29331806639822, 69.24530385741546)),
                 tripPath,
                 GeneralTripInfo(
                     TripType.NORMAL,
@@ -144,7 +151,8 @@ class ClientInMemoryDataSource @Inject constructor() : ClientDataSource {
                     "+998(93) 555-66-77",
                     R.drawable.driver_man,
                     Rating.GOOD_4,
-                    589
+                    589,
+                    Car("Белый Сhevrolet cobalt", "M 126 P", 78)
                 )
             )
         )

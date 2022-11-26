@@ -47,7 +47,7 @@ class TripHistoryFragment : Fragment() {
 
         //Imitating loading behavior
         CoroutineScope(Dispatchers.Main).launch {
-            delay(3000)
+            delay(2000)
             binding.shimmer.hideShimmer()
             binding.shimmer.visibility = View.GONE
             tripAdapter.submitTrips(viewModel.getTrips())

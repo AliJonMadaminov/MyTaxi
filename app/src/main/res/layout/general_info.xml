@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="generalInfo"
+            type="com.example.ui.android.task.junior.models.trip.BaseGeneralTripInfo" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/BottomSheetTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_info" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@color/gray_divider_color" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tariff" />
+
+            <TextView
+                android:id="@+id/txt_trip_type"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{generalInfo.tripType.toString()}"
+                tools:text="Business" />
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/payment_method" />
+
+            <ImageView
+                android:id="@+id/img_payment_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_spacing"
+                app:paymentMethod="@{generalInfo.paymentMethod}"
+                tools:src="@drawable/money_cash" />
+
+            <TextView
+                android:id="@+id/txt_payment_method"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{generalInfo.paymentMethod.toString()}"
+                tools:text="Cash" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_number" />
+
+            <TextView
+                android:id="@+id/txt_order_number"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{String.valueOf(generalInfo.orderNumber)}"
+                tools:text="4568" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trip_date_and_time" />
+
+            <TextView
+                android:id="@+id/txt_trip_time"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:dateAndTime="@{generalInfo.tripStartTime}"
+                tools:text="12 July, 24:00" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing">
+
+            <TextView
+                style="@style/SmallInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trip_duration"
+                />
+
+            <TextView
+                android:id="@+id/txt_trip_duration"
+                style="@style/SmallInfoTextStyle.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{generalInfo.getTripDurationString()}"
+                tools:text="24:00" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

@@ -20,7 +20,7 @@ abstract class BaseGeneralTripInfo {
     abstract val tripStartTime:Long
     abstract val tripEndTime:Long
 
-    abstract fun getTripDuration(): Long
+    abstract fun getTripDurationString(): String
 }
 
 abstract class BasePaymentInfo {
@@ -38,7 +38,9 @@ enum class TripType {
     NORMAL, DELIVERY, BUSINESS;
 
     override fun toString(): String {
-        return this.name.lowercase()
+        return this.name.lowercase().replaceFirstChar {
+            it.uppercase()
+        }
     }
 }
 

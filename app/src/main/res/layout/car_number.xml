@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="car"
+            type="com.example.ui.android.task.junior.models.user.driver.Car" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_spacing"
+        app:cardCornerRadius="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:showIn="@layout/bottom_sheet_trip_details">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txt_region_number"
+                style="@style/CarNumberTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/very_smal_spacing"
+                android:text="@{String.valueOf(car.regionNumber)}"
+                tools:text="45" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/small_vertical_line" />
+
+            <TextView
+                android:id="@+id/txt_car_number"
+                style="@style/CarNumberTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/very_smal_spacing"
+                android:text="@{car.number}"
+                tools:text="L 771 FA" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
