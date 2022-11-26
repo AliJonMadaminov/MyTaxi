@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.ui.android.task.junior.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/tripHistoryFragment"
+        android:name="com.example.ui.android.task.junior.triphistory.TripHistoryFragment"
+        android:label="fragment_trip_history"
+        tools:layout="@layout/fragment_trip_history" >
+        <action
+            android:id="@+id/action_tripHistoryFragment_to_tripDetailsFragment"
+            app:destination="@id/tripDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripDetailsFragment"
+        android:name="com.example.ui.android.task.junior.tripdetails.TripDetailsFragment"
+        android:label="fragment_trip_details"
+        tools:layout="@layout/fragment_trip_details" >
+        <argument
+            android:name="orderNumber"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

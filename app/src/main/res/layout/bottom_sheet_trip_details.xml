@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="trip"
+            type="com.example.ui.android.task.junior.models.trip.BaseTrip" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="@dimen/medium_spacing"
+        android:background="@drawable/bottom_sheet_background">
+
+        <include
+            android:id="@+id/include_car_number"
+            layout="@layout/car_number"
+            app:car="@{trip.driver.car}"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_car_name"
+            style="@style/CarNameTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/include_car_number"
+            tools:text="Черный Chevrolet Malibu" />
+
+        <ImageView
+            android:id="@+id/img_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_car_name"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/include_car_number"
+            app:layout_constraintVertical_bias="0.208"
+            app:carImage="@{trip.generalTripInfo.tripType}" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:background="@color/gray_divider_color"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/txt_car_name" />
+
+        <ImageView
+            android:id="@+id/img_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:srcCompat="@drawable/from_location" />
+
+        <TextView
+            android:id="@+id/txt_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{trip.startDestination.name}"
+            android:layout_marginStart="@dimen/small_spacing"
+            app:layout_constraintBottom_toBottomOf="@+id/img_from"
+            app:layout_constraintStart_toEndOf="@+id/img_from"
+            app:layout_constraintTop_toTopOf="@+id/img_from"
+            tools:text="Sharof Rashidov street" />
+
+        <ImageView
+            android:id="@+id/img_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/img_from"
+            app:srcCompat="@drawable/to_location" />
+
+        <TextView
+            android:id="@+id/txt_end_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{trip.endDestination.name}"
+            android:layout_marginStart="@dimen/small_spacing"
+            app:layout_constraintBottom_toBottomOf="@+id/img_to"
+            app:layout_constraintStart_toEndOf="@+id/img_to"
+            app:layout_constraintTop_toTopOf="@+id/img_to"
+            tools:text="Rakat mahalla" />
+
+        <include
+            android:id="@+id/buttons"
+            layout="@layout/bottom_sheet_trip_details_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_end_destination" />
+
+        <include
+            android:id="@+id/driver_info"
+            layout="@layout/driver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:driver="@{trip.driver}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/buttons" />
+
+        <include
+            android:id="@+id/general_info"
+            layout="@layout/general_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:generalInfo="@{trip.generalTripInfo}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/driver_info" />
+
+        <include
+            android:id="@+id/payment_info"
+            layout="@layout/payment_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:paymentInfo="@{trip.paymentInfo}"
+            android:layout_marginTop="@dimen/large_spacing"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/general_info" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/medium_spacing" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

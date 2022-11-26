@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="trip"
+            type="com.example.ui.android.task.junior.models.trip.BaseTrip" />
+
+        <variable
+            name="clickListener"
+            type="com.example.ui.android.task.junior.triphistory.TripHistoryListener" />
+    </data>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:onClick="@{() -> clickListener.onClick(trip)}"
+            app:cardCornerRadius="@dimen/normal_radius">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_spacing"
+                    android:layout_marginTop="@dimen/medium_spacing"
+                    android:src="@drawable/from_location"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_from"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_spacing"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="@{trip.startDestination.name}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/card_text_color"
+                    app:layout_constraintBottom_toBottomOf="@id/img_from"
+                    app:layout_constraintStart_toEndOf="@+id/img_from"
+                    app:layout_constraintTop_toTopOf="@+id/img_from"
+                    tools:text="sharof rashidov street" />
+
+
+                <ImageView
+                    android:id="@+id/img_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_spacing"
+                    android:layout_marginTop="@dimen/medium_spacing"
+                    android:src="@drawable/to_location"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_to"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_from" />
+
+                <TextView
+                    android:id="@+id/txt_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_spacing"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="@{trip.endDestination.name}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/card_text_color"
+                    app:layout_constraintBottom_toBottomOf="@id/img_to"
+                    app:layout_constraintStart_toEndOf="@+id/img_to"
+                    app:layout_constraintTop_toTopOf="@+id/img_to"
+                    tools:text="sharof rashidov street" />
+
+                <ImageView
+                    android:id="@+id/img_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_spacing"
+                    android:layout_marginEnd="@dimen/small_spacing"
+                    android:layout_marginBottom="12dp"
+                    app:carImage="@{trip.generalTripInfo.tripType}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_to"
+                    app:srcCompat="@drawable/business" />
+
+                <TextView
+                    android:id="@+id/txt_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_spacing"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_car"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:time="@{trip.generalTripInfo.tripStartTime}"
+                    tools:text="21:36" />
+
+                <ImageView
+                    android:id="@+id/img_dummy_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_start_time"
+                    app:layout_constraintStart_toEndOf="@+id/txt_start_time"
+                    app:layout_constraintTop_toTopOf="@+id/txt_start_time"
+                    app:srcCompat="@drawable/smal_circle" />
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_start_time"
+                    app:layout_constraintStart_toEndOf="@+id/img_dummy_circle"
+                    app:layout_constraintTop_toTopOf="@+id/txt_start_time"
+                    app:currency="@{@string/currency}"
+                    app:price="@{trip.paymentInfo.calculateTotalPrice()}"
+                    tools:text="12 900 sum" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,4 +1,38 @@
 <resources>
     <string name="app_name">Android Task Junior</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_destination_placeholder">5a улица Асадуллы Ходжаева</string>
+    <string name="to_destination">Куда?</string>
+    <string name="location_permission_denied">Location permission not granted</string>
+    <string name="permission_request_explanation">Please provide permission in order to automatically detect you location</string>
+    <string name="my_trips">Мои поездки</string>
+    <string name="payment_methods">Способы оплаты</string>
+    <string name="favourite_addresses">Избранные адреса</string>
+
+    <string name="full_name">$s\n$s</string>
+    <string name="enable_gps_message">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <string name="currency">сум</string>
+    <string name="my_trips_title">Мои Поездки</string>
+    <string name="help">Помощь</string>
+    <string name="repeat">Повторить</string>
+    <string name="call">Позвонить</string>
+    <string name="driver">Водитель</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="drives">Поездки:</string>
+    <string name="general_info">Общие Данные</string>
+    <string name="tariff">Тариф:</string>
+    <string name="payment_method">Способ оплаты:</string>
+    <string name="order_number">Заказ №:</string>
+    <string name="trip_date_and_time">Дата и время поездки:</string>
+    <string name="trip_duration">продолжительность поездки:</string>
+    <string name="cost_calculation">Расчёт стоимости</string>
+    <string name="minimal_price">Минимальная сумма:</string>
+    <string name="high_demand">Повышенный спрос:</string>
+    <string name="trip_price">Сумма поездки:</string>
+    <string name="total">Итого</string>
 </resources>

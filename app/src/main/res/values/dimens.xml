@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_sheet_corner_radius">20dp</dimen>
+    <dimen name="medium_spacing">16dp</dimen>
+    <dimen name="small_spacing">8dp</dimen>
+    <dimen name="large_spacing">20dp</dimen>
+    <dimen name="big_spacing">32dp</dimen>
+    <dimen name="circle_image_diameter">60dp</dimen>
+    <dimen name="normal_radius">12dp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="medium_shimmer_height">28dp</dimen>
+    <dimen name="normal_spacing">12dp</dimen>
+    <dimen name="very_smal_spacing">4dp</dimen>
+</resources>
