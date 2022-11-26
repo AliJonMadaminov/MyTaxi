@@ -5,4 +5,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TripDetailViewModel @Inject constructor(var repository: TripDetailsRepository) {
+
+    fun getTrip(orderNumber:Int) = repository.getTrip(orderNumber)
 }
