@@ -51,7 +51,7 @@ private fun getCurrentAddress(
 
 fun Geocoder.getCurrentAddress(location: LatLng): Address? {
     var address: Address? = null
-    val addressList = getCurrentAddress(this@getCurrentAddress, location)
+    val addressList = getCurrentAddress(this, location)
     if (addressList.isNotEmpty()) {
         address = addressList[0]
     }

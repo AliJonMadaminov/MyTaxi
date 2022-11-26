@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/very_smal_spacing"
             android:fontFamily="@font/lato_bold"
-            android:text="@{String.valueOf(driver.rating)}"
+            android:text="@{String.valueOf(driver.rating.value)}"
             android:textColor="@color/black_my"
             app:layout_constraintBottom_toBottomOf="@+id/txt_dummy_rating"
             app:layout_constraintStart_toEndOf="@+id/txt_dummy_rating"

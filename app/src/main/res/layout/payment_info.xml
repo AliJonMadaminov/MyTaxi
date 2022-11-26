@@ -7,7 +7,7 @@
 
         <variable
             name="paymentInfo"
-            type="com.example.ui.android.task.junior.models.trip.PaymentInfo" />
+            type="com.example.ui.android.task.junior.models.trip.BasePaymentInfo" />
     </data>
 
     <LinearLayout

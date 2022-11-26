@@ -89,7 +89,7 @@ class TripDetailsFragment() : Fragment() {
         binding = FragmentTripDetailsBinding.inflate(inflater)
         binding.mapTripDetail.onCreate(savedInstanceState)
         binding.mapTripDetail.getMapAsync(callback)
-
+        binding.trip = trip
         binding.btnNavigateUp.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -104,10 +104,6 @@ class TripDetailsFragment() : Fragment() {
                     R.raw.map_style
                 )
             )
-
-            if (!success) {
-                Log.e("MapsActivity: MapStyle", "Map style parsing failed")
-            }
 
         } catch (e: java.lang.Exception) {
             e.printStackTrace()

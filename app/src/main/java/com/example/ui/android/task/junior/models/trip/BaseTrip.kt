@@ -20,7 +20,7 @@ abstract class BaseGeneralTripInfo {
     abstract val tripStartTime:Long
     abstract val tripEndTime:Long
 
-    abstract fun getTripDuration(): Long
+    abstract fun getTripDurationString(): String
 }
 
 abstract class BasePaymentInfo {

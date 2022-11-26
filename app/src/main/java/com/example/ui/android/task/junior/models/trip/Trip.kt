@@ -1,6 +1,7 @@
 package com.example.ui.android.task.junior.models.trip
 
 import com.example.ui.android.task.junior.models.user.driver.BaseDriver
+import com.example.ui.android.task.junior.utils.getDurationString
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import javax.inject.Inject
@@ -23,8 +24,8 @@ data class GeneralTripInfo(
     override val tripEndTime: Long
 ) : BaseGeneralTripInfo() {
 
-    override fun getTripDuration():Long {
-        return tripEndTime - tripStartTime
+    override fun getTripDurationString(): String {
+        return getDurationString(tripStartTime, tripEndTime)
     }
 }
 
@@ -35,7 +36,7 @@ data class PaymentInfo(
     override val waitPrice: Int
 ) : BasePaymentInfo() {
 
-    override fun calculateTotalPrice():Int {
+    override fun calculateTotalPrice(): Int {
         return tripPrice + highDemand + waitPrice
     }
 
