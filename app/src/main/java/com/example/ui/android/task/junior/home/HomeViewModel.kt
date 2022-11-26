@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(homeRepository: HomeRepository) : ViewModel() {
 
-    val client: BaseClient = homeRepository.clientDataSource.getClient()
+    val client: BaseClient = homeRepository.getClient()
 
     val currentLocation: MutableLiveData<LatLng> =
         MutableLiveData(LatLng(41.31114164054522, 69.27959980798161))
