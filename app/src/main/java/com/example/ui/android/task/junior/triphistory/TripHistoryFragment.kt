@@ -32,8 +32,11 @@ class TripHistoryFragment : Fragment() {
 
         binding = FragmentTripHistoryBinding.inflate(inflater)
 
-        val tripAdapter = TripHistoryAdapter(TripHistoryListener {
+        val tripAdapter = TripHistoryAdapter(TripHistoryListener { orderNumber ->
+            val action = TripHistoryFragmentDirections
+                .actionTripHistoryFragmentToTripDetailsFragment(orderNumber)
 
+            findNavController().navigate(action)
         })
 
         binding.recyclerTrips.apply {
