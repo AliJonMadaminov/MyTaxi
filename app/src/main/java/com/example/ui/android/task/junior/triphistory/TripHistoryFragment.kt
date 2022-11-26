@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ui.android.task.junior.databinding.FragmentTripHistoryBinding
 import com.example.ui.android.task.junior.models.ClientDataSource
@@ -49,7 +50,9 @@ class TripHistoryFragment : Fragment() {
             tripAdapter.submitTrips(viewModel.getTrips())
         }
 
-
+        binding.btnNavigateUp.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
     }
 

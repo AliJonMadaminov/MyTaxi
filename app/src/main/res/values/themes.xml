@@ -41,8 +41,10 @@
         <item name="android:textColor">@color/white_my</item>
     </style>
 
-    <style name="NavigationItemNoRipple">
-        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    <style name="AppBarTitleStyle">
+        <item name="android:textColor">@color/app_bar_title_color</item>
+        <item name="android:textSize">24sp</item>
+        <item name="fontFamily">@font/lato_bold</item>
     </style>
 
 </resources>
