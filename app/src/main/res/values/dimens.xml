@@ -7,4 +7,8 @@
     <dimen name="big_spacing">32dp</dimen>
     <dimen name="circle_image_diameter">60dp</dimen>
     <dimen name="card_radius">12dp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="medium_shimmer_height">28dp</dimen>
+    <dimen name="normal_spacing">12dp</dimen>
+    <dimen name="very_smal_spacing">4dp</dimen>
 </resources>

@@ -15,4 +15,7 @@
     <string name="enable_gps_message">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    
+    <string name="currency">сум</string>
+    <string name="my_trips_title">Мои Поездки</string>
 </resources>

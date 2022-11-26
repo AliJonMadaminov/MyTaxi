@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.ui.android.task.junior.viewmodels.HomeViewModel" />
+            type="com.example.ui.android.task.junior.home.HomeViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -24,7 +24,7 @@
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.HomeFragment" />
+                tools:context=".home.HomeFragment" />
         <!-- Fixed issue with MapView top overlapping
              navigation view top(under status bar)-->
             <View

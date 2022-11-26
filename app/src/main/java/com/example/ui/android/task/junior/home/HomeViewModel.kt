@@ -1,4 +1,4 @@
-package com.example.ui.android.task.junior.viewmodels
+package com.example.ui.android.task.junior.home
 
 import android.location.Address
 import android.location.Geocoder
@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ui.android.task.junior.models.user.client.BaseClient
-import com.example.ui.android.task.junior.repositories.HomeRepository
+import com.example.ui.android.task.junior.home.HomeRepository
 import com.example.ui.android.task.junior.utils.getCurrentAddress
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(homeRepository: HomeRepository) : ViewMo
     val currentLocation: MutableLiveData<LatLng> =
         MutableLiveData(LatLng(41.31114164054522, 69.27959980798161))
 
-    val _currentLocationName: MutableLiveData<String> = MutableLiveData()
+    private val _currentLocationName: MutableLiveData<String> = MutableLiveData()
     val currentLocationName: LiveData<String>
         get() = _currentLocationName
 
