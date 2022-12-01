@@ -101,27 +101,6 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_spacing">
-
-            <TextView
-                style="@style/SmallInfoTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/trip_price" />
-
-            <TextView
-                android:id="@+id/txt_wait_price"
-                style="@style/SmallInfoTextStyle.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@{String.valueOf(paymentInfo.waitPrice)}"
-                tools:text="0" />
-
-        </FrameLayout>
 
         <View
             android:layout_width="match_parent"

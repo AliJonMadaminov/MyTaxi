@@ -11,4 +11,5 @@
     <dimen name="medium_shimmer_height">28dp</dimen>
     <dimen name="normal_spacing">12dp</dimen>
     <dimen name="very_smal_spacing">4dp</dimen>
+    <dimen name="bottom_sheet_peek_height">80dp</dimen>
 </resources>
